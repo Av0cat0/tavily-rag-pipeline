@@ -1,0 +1,5 @@
+ipython==8.12.3
+langchain==0.3.26
+langchain_cohere==0.4.4
+langgraph==0.5.1
+tenacity==8.2.3
