@@ -2,7 +2,6 @@ import os
 import json
 from langchain_cohere import ChatCohere
 from langchain.schema import HumanMessage
-from util import pretty_print
 import re
 
 class LLM:
@@ -34,26 +33,6 @@ class LLM:
             temperature=self.temperature,
             streaming=self.streaming
         )
-
-
-    def _print_wrapped_under_bar(self, text: str, max_width: int = 80):
-        """
-        Wraps and prints text to stdout when line length exceeds max_width.
-
-        Args:
-            text (str): Text to print in a wrapped format.
-            max_width (int): Maximum characters per line before wrapping.
-        """
-        if not hasattr(self, "_char_buffer"):
-            self._char_buffer = ""
-        self._char_buffer += text
-        while len(self._char_buffer) >= max_width:
-            break_idx = self._char_buffer.rfind(" ", 0, max_width)
-            if break_idx == -1:
-                break_idx = max_width
-            line = self._char_buffer[:break_idx].rstrip()
-            print(line)
-            self._char_buffer = self._char_buffer[break_idx:].lstrip()
 
 
     def __call__(self, messages: list[HumanMessage], stream: bool = False) -> str:
@@ -95,22 +74,7 @@ class LLM:
                 Answer the prompt based on the context.\nContext:\n{context}\n\nPrompt: {question}
             """
         try:
-            pretty_print("", subtext="AI Response", color="96")
-            if stream:
-                response = ""
-                client = self._get_client()
-                for chunk in client.stream([HumanMessage(content=prompt)]):
-                    token = chunk.content if hasattr(chunk, "content") else ""
-                    self._print_wrapped_under_bar(token, 80)
-                    response += token
-                # Print any remaining buffer
-                if hasattr(self, "_char_buffer") and self._char_buffer.strip():
-                    print(self._char_buffer.strip() + "\n")
-                    del self._char_buffer
-
-                return response
-            else:
-                return self([HumanMessage(content=prompt)], stream=False)
+            return self([HumanMessage(content=prompt)], stream=False)
         except Exception as e:
             raise Exception(f"[Error calling Cohere: {e}]")
 
