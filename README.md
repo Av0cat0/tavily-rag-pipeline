@@ -1,6 +1,6 @@
-# Tavily Home Assignment — LangGraph RAG Pipeline
+# Tavily & LangGraph RAG Pipeline
 
-This project implements a LangGraph-based RAG (Retrieval-Augmented Generation) pipeline using the [Tavily](https://www.tavily.com/) API and Cohere LLMs. It parses complex user queries into subqueries, searches for relevant information using Tavily, and generates structured LLM responses via LangGraph state orchestration.
+This project implements a LangGraph-based RAG pipeline using the [Tavily](https://www.tavily.com/) API and Cohere LLMs. It parses user queries into subqueries, searches for relevant information using Tavily, and generates structured LLM responses via LangGraph state orchestration.
 
 
 <p align="center">
@@ -18,23 +18,11 @@ This project implements a LangGraph-based RAG (Retrieval-Augmented Generation) p
 
 ## 📌 Features
 
-- 🔍 **Subquery Parsing:** Splits compound queries into multiple simpler subqueries using an LLM.
-- 🔗 **Tavily Search:** Fetches relevant context for each subquery with dynamic depth selection (basic/advanced).
-- 🧠 **LLM Answer Generation:** Generates final answers using Cohere’s `command-r` model with optional streaming.
+- 🔀 **Subquery Parsing:** Splits compound queries into multiple simpler subqueries using an LLM.
+- 🔍 **Tavily Search:** Fetches relevant context for each subquery with dynamic depth selection (basic/advanced).
+- 🧠 **LLM Answer Generation:** Generates final answers using Cohere’s `command-r` model.
 - ♻️ **Checkpointing:** Uses LangGraph memory-based checkpointing to skip redundant steps in repeated queries.
-- 📊 **Graph Visualization:** Displays the LangGraph pipeline as a state diagram.
-- ✅ **Robust Testing:** Includes tests for various categories like simple queries, robustness, streaming, and checkpointing.
-
----
-
-## 🧪 Demo (Notebook)
-
-Open `demo.ipynb` to explore:
-- Example inputs and outputs
-- Subquery generation
-- Streaming response formatting
-- Checkpointing in action
-- Graph structure visualization
+- ✅ **Robust Testing:** Includes tests for various categories.
 
 ---
 
@@ -54,7 +42,7 @@ tavilyHW/
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### 1. Clone & Install
 ```bash
@@ -76,7 +64,7 @@ export TAVILY_API_KEY="your_tavily_api_key"
 
 ### 3. Run the Notebook
 
-Activate your virtual environment if needed, then start Jupyter:
+Activate the virtual environment, then start Jupyter:
 
 ```bash
 jupyter notebook demo.ipynb
@@ -89,17 +77,17 @@ The notebook `demo.ipynb` demonstrates the capabilities and robustness of the La
 - ✅ **Simple Queries**: Ensure the system handles straightforward prompts.
   - _Example_: `"What is LangGraph?"`
 
-- ✅ **Subquery Generation**: Validate the LLM's ability to decompose complex prompts into atomic subqueries.
+- 🔀  **Multi-Subquery Parsing**: Validate the LLM's ability to decompose complex prompts into atomic subqueries.
   - _Example_: `"What are the features of LangGraph and who uses it?"`
 
-- ✅ **Checkpointing**: Confirms that the graph avoids redundant work on repeated queries using in-memory checkpointing.
+- 🔄 **Checkpointing**: Confirms that the graph avoids redundant work on repeated queries using in-memory checkpointing.
   - _Example_: Querying `"Where is France located?"` multiple times.
 
-- ✅ **Stress Testing**: Evaluate system behavior on long, multi-part prompts.
+- 💥 **Stress Testing**: Evaluate system behavior on long, multi-part prompts.
   - _Example_: `"Tell me about LangGraph's benefits, use cases, integration with LLMs, industry adoption, competitors, and deployment options."`
 
-- ✅ **Robustness**: Assess response to malformed or nonsensical inputs.
+- 🧪 **Robustness**: Assess response to malformed or nonsensical inputs.
   - _Example_: `"Blargle wib wib ahsheli LangGraph elephant?"`
 
-- ✅ **Short Prompts**: Check system’s ability to handle extremely short or vague prompts.
+- ✂️ **Short Prompts**: Check system’s ability to handle extremely short or vague prompts.
   - _Example_: `"LangGraph"`
